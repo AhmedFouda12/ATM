@@ -14,7 +14,6 @@ A simple ATM simulation system written in C++. This project demonstrates basic b
 ## Requirements
 - Windows OS
 - C++ compiler (e.g., MinGW, MSVC)
-- No external libraries required (uses Windows API for GUI)
 
 ## Building
 1. Open a terminal in the project directory.
