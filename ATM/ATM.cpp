@@ -1,8 +1,8 @@
 #include "ATM.h"
-#include "UserInterface.h"
-#include "AdminMode.h"
-#include "CustomerMode.h"
-#include "Customer.h"
+#include "../Interface/UserInterface.h"
+#include "../Account/AdminMode.h"
+#include "../Account/CustomerMode.h"
+#include "../Account/Customer.h"
 #include <iostream>
 
 using namespace std;

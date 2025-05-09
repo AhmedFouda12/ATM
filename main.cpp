@@ -1,9 +1,10 @@
-#include "ATM.h"
-#include "UserInterface.h"
+#include "ATM/ATM.h"
+#include "Interface/UserInterface.h"
 
-int main() {
+int main()
+{
     // Initialize and run the ATM
-    ATM* atm = ATM::getInstance();
+    ATM *atm = ATM::getInstance();
     atm->run();
     return 0;
 }
