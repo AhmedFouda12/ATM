@@ -10,7 +10,11 @@ using namespace std;
 ATM *ATM::instance = nullptr;
 
 ATM::ATM()
-    : currentMode(""), currentUser(nullptr), adminPassword("admin"), nextAccountID(1), nextTransactionID(1) {}
+    : currentMode(""), currentUser(nullptr), adminPassword("admin"), nextAccountID(001), nextTransactionID(1)
+{
+    // Initialize at least one customer account
+    accounts.push_back(new CheckingAccount(nextAccountID++, "user1", "1234", 1000.0));
+}
 
 ATM *ATM::getInstance()
 {
@@ -57,15 +61,23 @@ void ATM::displayMainMenu()
 
 void ATM::handleAdminMode()
 {
+    int wrongAttempts = 0;
     UserInterface::clearScreen();
     UserInterface::showMessage("Enter admin password:");
     string pw = UserInterface::getInput();
-    if (!authenticateAdmin(pw))
+    while (!authenticateAdmin(pw))
     {
-        UserInterface::showMessage("Invalid password.");
-        UserInterface::getInput();
-        return;
+        wrongAttempts++;
+        UserInterface::showMessage("Invalid password. please try again.");
+        if (wrongAttempts >= 3)
+        {
+            UserInterface::showMessage("Account locked due to too many failed attempts.");
+            exit(0);
+        }
+        UserInterface::showMessage("Enter password:");
+        pw = UserInterface::getInput();
     }
+
     while (true)
     {
         UserInterface::clearScreen();
@@ -93,11 +105,21 @@ void ATM::handleCustomerMode()
     string uid = UserInterface::getInput();
     UserInterface::showMessage("Enter password:");
     string pw = UserInterface::getInput();
-    if (!authenticateCustomer(uid, pw))
+
+    int wrongAttempts = 0;
+    while (!authenticateCustomer(uid, pw))
     {
-        UserInterface::showMessage("Login failed.");
-        UserInterface::getInput();
-        return;
+        wrongAttempts++;
+        UserInterface::showMessage("Invalid password. please try again.");
+        if (wrongAttempts >= 3)
+        {
+            UserInterface::showMessage("Account locked due to too many failed attempts.");
+            exit(0);
+        }
+        UserInterface::showMessage("Enter userID:");
+        uid = UserInterface::getInput();
+        UserInterface::showMessage("Enter password:");
+        pw = UserInterface::getInput();
     }
     while (true)
     {
@@ -194,10 +216,10 @@ void ATM::addAccount()
 void ATM::deleteAccount()
 {
     UserInterface::showMessage("Enter accountID to delete:");
-    int id = UserInterface::getIntInput();
+    string id = UserInterface::getInput();
     for (auto it = accounts.begin(); it != accounts.end(); ++it)
     {
-        if ((*it)->getAccountID() == id)
+        if ((*it)->getUserID() == id)
         {
             delete *it;
             accounts.erase(it);

@@ -4,7 +4,7 @@ using namespace std;
 string password = "admin123"; // Default password for admin mode
 
 AdminMode::AdminMode(string pw)
-    : password(pw), wrongAttempts(0) {}
+    : password(pw), wrongAttempts(3) {}
 
 bool AdminMode::authenticate(string input) {
     if (input == password) { resetWrongAttempts(); return true; }
