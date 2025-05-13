@@ -202,6 +202,12 @@ bool ATM::authenticateCustomer(string userID, string pw)
 
 void ATM::addAccount()
 {
+    if (accounts.size() >= 100)
+    {
+        UserInterface::showMessage("Maximum number of accounts reached.");
+        return;
+    }
+    else{
     UserInterface::showMessage("Enter new userID:");
     string uid = UserInterface::getInput();
     UserInterface::showMessage("Enter password:");
@@ -211,6 +217,7 @@ void ATM::addAccount()
     Account *acc = new CheckingAccount(nextAccountID++, uid, pw, bal);
     accounts.push_back(acc);
     UserInterface::showMessage("Account created.");
+    }
 }
 
 void ATM::deleteAccount()
