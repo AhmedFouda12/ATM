@@ -207,16 +207,17 @@ void ATM::addAccount()
         UserInterface::showMessage("Maximum number of accounts reached.");
         return;
     }
-    else{
-    UserInterface::showMessage("Enter new userID:");
-    string uid = UserInterface::getInput();
-    UserInterface::showMessage("Enter password:");
-    string pw = UserInterface::getInput();
-    UserInterface::showMessage("Enter initial balance:");
-    double bal = UserInterface::getDoubleInput();
-    Account *acc = new CheckingAccount(nextAccountID++, uid, pw, bal);
-    accounts.push_back(acc);
-    UserInterface::showMessage("Account created.");
+    else
+    {
+        UserInterface::showMessage("Enter new userID:");
+        string uid = UserInterface::getInput();
+        UserInterface::showMessage("Enter password:");
+        string pw = UserInterface::getInput();
+        UserInterface::showMessage("Enter initial balance:");
+        double bal = UserInterface::getDoubleInput();
+        Account *acc = new CheckingAccount(nextAccountID++, uid, pw, bal);
+        accounts.push_back(acc);
+        UserInterface::showMessage("Account created.");
     }
 }
 
@@ -261,7 +262,8 @@ void ATM::withdraw(Account *acc, double amount)
 
 void ATM::transfer(Account *from, Account *to, double amount)
 {
-    if (dynamic_cast<CheckingAccount *>(from)->transfer(to, amount))
+    CheckingAccount *fromChecking = dynamic_cast<CheckingAccount *>(from);
+    if (fromChecking && fromChecking->transfer(to, amount))
     {
         logTransaction("Transfer", amount, from->getAccountID());
         UserInterface::showMessage("Transfer successful.");
