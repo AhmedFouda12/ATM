@@ -19,7 +19,7 @@ A simple ATM simulation system written in C++. This project demonstrates basic b
 1. Open a terminal in the project directory.
 2. Compile all source files:
    ```sh
-   g++ main.cpp ATM.cpp Account.cpp Customer.cpp AdminMode.cpp CustomerMode.cpp Transaction.cpp UserInterface.cpp -o atm.exe -mwindows
+    g++ main.cpp ATM/ATM.cpp Interface/UserInterface.cpp Account/Account.cpp Account/AdminMode.cpp Account/Customer.cpp Account/CustomerMode.cpp Trans/Transaction.cpp -o atm.exe
    ```
    The `-mwindows` flag is required to build a Windows GUI application.
 
