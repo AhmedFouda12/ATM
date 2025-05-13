@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+using namespace std;
 
 
 class UserInterface {
@@ -11,9 +12,9 @@ public:
     static void displayAccountSelection();
     static void displayCheckingMenu();
     static void displaySavingsMenu();
-    static std::string getInput();
+    static string getInput();
     static int getIntInput();
     static double getDoubleInput();
-    static void showMessage(const std::string &);
+    static void showMessage(const string &);
     static void clearScreen();
 };

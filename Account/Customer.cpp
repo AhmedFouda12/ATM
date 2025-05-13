@@ -1,4 +1,5 @@
 #include "Customer.h"
+using namespace std;
 
 bool CheckingAccount::withdraw(double amount) {
     if (amount > 0 && amount <= balance) {
@@ -27,7 +28,7 @@ bool CheckingAccount::checkBalance() const {
     return balance;
 }
 
-bool CheckingAccount::changePassword(const std::string &newPw) {
+bool CheckingAccount::changePassword(const string &newPw) {
     password = newPw;
     return true;
 }

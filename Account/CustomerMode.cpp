@@ -1,11 +1,12 @@
 #include "CustomerMode.h"
 #include "../ATM/ATM.h"
 #include "../Interface/UserInterface.h"
+using namespace std;
 
 CustomerMode::CustomerMode()
     : currentAccount(nullptr), wrongAttempts(3) {}
 
-bool CustomerMode::authenticate(const std::string &userID, const std::string &password, ATM *atm)
+bool CustomerMode::authenticate(const string &userID, const string &password, ATM *atm)
 {
     const auto &accts = atm->getAccounts();
     for (auto acc : accts)
@@ -79,7 +80,7 @@ void CustomerMode::performCheckingOperations(ATM *atm)
         else if (choice == 4)
         {
             UserInterface::showMessage("Enter new password:");
-            std::string npw = UserInterface::getInput();
+            string npw = UserInterface::getInput();
             changePassword(atm, npw);
         }
         else if (choice == 0)
@@ -114,7 +115,7 @@ void CustomerMode::performSavingsOperations(ATM *atm)
         else if (choice == 4)
         {
             UserInterface::showMessage("Enter new password:");
-            std::string npw = UserInterface::getInput();
+            string npw = UserInterface::getInput();
             changePassword(atm, npw);
         }
         else if (choice == 0)
@@ -142,7 +143,7 @@ void CustomerMode::transfer(ATM *atm, Account *to, double amount)
     atm->transfer(currentAccount, to, amount);
 }
 
-void CustomerMode::changePassword(ATM *atm, const std::string &newPw)
+void CustomerMode::changePassword(ATM *atm, const string &newPw)
 {
     atm->changePassword(currentAccount);
 }
